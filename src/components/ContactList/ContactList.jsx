@@ -8,6 +8,7 @@ import {
   selectLoading,
 } from 'redux/selectors';
 import { deleteContact, fetchContacts } from 'redux/operations';
+import { Loader } from 'components/Loader/Loader';
 
 export const ContactList = () => {
   const contactCard = useSelector(selectContactsList);
@@ -23,7 +24,7 @@ export const ContactList = () => {
 
   return (
     <ul className={css.contactsList}>
-      {loading && <p>Loading...</p>}
+      {loading && <Loader />}
       {error && <p> {error}</p>}
       {contactCard
         .filter(contact =>
