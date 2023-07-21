@@ -1,19 +1,17 @@
 import css from './ContactForm.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-// import { addContact } from 'redux/contactSlice';
 import { Notify } from 'notiflix';
-import { selectContactsList, selectLoading } from 'redux/selectors';
-import { fetchContacts } from 'redux/operations';
+import { selectContactsList } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const contactCard = useSelector(selectContactsList);
-  const loading = useSelector(selectLoading)
+  const [phone, setNumber] = useState('');
+  const contactList = useSelector(selectContactsList);
   const dispatch = useDispatch();
-  
+
   const handleNameInput = e => {
     setName(e.target.value);
   };
@@ -22,16 +20,16 @@ export const ContactForm = () => {
     setNumber(e.target.value);
   };
 
-    const isOnList = contactCard
-      .map(contact => contact.name.toLocaleLowerCase())
-      .includes(name.toLocaleLowerCase());
+  const isOnList = contactList
+    .map(contact => contact.name.toLocaleLowerCase())
+    .includes(name.toLocaleLowerCase());
 
   const handleSubmit = e => {
     e.preventDefault();
     if (isOnList) {
       Notify.failure(`${name} is already in contact list!`);
     } else {
-      // dispatch(fetchContacts);
+      dispatch(addContact({ name, phone }));
       Notify.success(`${name} added to contact list!`);
       setName('');
       setNumber('');
@@ -62,7 +60,7 @@ export const ContactForm = () => {
         required
         className={css.formInput}
         placeholder="666 666 666"
-        value={number}
+        value={phone}
         onChange={handleNumberInput}
       />
       <button type="submit" className={css.formBnt}>

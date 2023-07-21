@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-// import { deleteContact } from 'redux/contactSlice';
 import {
   findContact,
   selectContactsList,
@@ -17,9 +16,10 @@ export const ContactList = () => {
   const filter = useSelector(findContact);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+   useEffect(() => {
+     dispatch(fetchContacts());
+   }, [dispatch]);
+
 
   return (
     <ul className={css.contactsList}>
