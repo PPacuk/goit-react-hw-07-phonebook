@@ -1,0 +1,20 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid black;
+  width: 210px;
+  padding: 15px;
+}
+
+.formInput {
+  width: 200px;
+}
+
+.formInput:focus {
+  outline-color: #34b1eb;
+}
+
+.formBnt {
+  width: 100px;
+}
