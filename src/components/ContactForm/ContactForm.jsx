@@ -1,15 +1,17 @@
 import css from './ContactForm.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactSlice';
+// import { addContact } from 'redux/contactSlice';
 import { Notify } from 'notiflix';
-import { getContactsList } from 'redux/selectors';
+import { selectContactsList, selectLoading } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contactCard = useSelector(getContactsList);
+  const contactCard = useSelector(selectContactsList);
+  const loading = useSelector(selectLoading)
   const dispatch = useDispatch();
   
   const handleNameInput = e => {
@@ -29,7 +31,7 @@ export const ContactForm = () => {
     if (isOnList) {
       Notify.failure(`${name} is already in contact list!`);
     } else {
-      dispatch(addContact(name, number));
+      // dispatch(fetchContacts);
       Notify.success(`${name} added to contact list!`);
       setName('');
       setNumber('');
